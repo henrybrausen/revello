@@ -6,14 +6,14 @@
 #include "OTPEngine.h"
 
 // For position evaluation.
-int values[10] = { 1000, -100, -200, 0, 0, 0, 0, 0, 0, 0 };
+int values[10] = { 1000, -100, -100, 0, 0, 0, 0, 0, 0, 0 };
 
 int main(int argc, char *argv[])
 {
     Board MyBoard;
     MyBoard.load_pos_values(values);
     ABPlayer MyPlayer = ABPlayer(MyBoard, 10000000);
-    MyPlayer.set_mobility_weight(50);
+    MyPlayer.set_mobility_weight(100);
     
     
     OTPEngine MyEngine = OTPEngine();

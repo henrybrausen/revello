@@ -185,29 +185,29 @@ int Board::num_stones(bool color) const
 
 int Board::evaluate_territory() const
 {
-	/*int ret = 0;
+	int ret = 0;
 	// Count corners
     if (m_toPlay == P_BLACK) {
-        if (m_board.b_r0 & 0x8000000000000000ULL) ++ret;
-        if (m_board.b_r0 & 0x0100000000000000ULL) ++ret;
-        if (m_board.b_r0 & 0x80) ++ret;
-        if (m_board.b_r0 & 0x01) ++ret;
-        if (m_board.w_r0 & 0x8000000000000000ULL) --ret;
-        if (m_board.w_r0 & 0x0100000000000000ULL) --ret;
-        if (m_board.w_r0 & 0x80) --ret;
-        if (m_board.w_r0 & 0x01) --ret;
+        ret += ((m_board.b_r0 & 0x8000000000000000ULL) != 0);
+        ret += ((m_board.b_r0 & 0x0100000000000000ULL) != 0);
+        ret += ((m_board.b_r0 & 0x80) != 0); ++ret;
+        ret += ((m_board.b_r0 & 0x01) != 0); ++ret;
+        ret -= ((m_board.w_r0 & 0x8000000000000000ULL) != 0);
+        ret -= ((m_board.w_r0 & 0x0100000000000000ULL) != 0);
+        ret -= ((m_board.w_r0 & 0x80) != 0);
+        ret -= ((m_board.w_r0 & 0x01) != 0);
     } else {
-        if (m_board.b_r0 & 0x8000000000000000ULL) --ret;
-        if (m_board.b_r0 & 0x0100000000000000ULL) --ret;
-        if (m_board.b_r0 & 0x80) --ret;
-        if (m_board.b_r0 & 0x01) --ret;
-        if (m_board.w_r0 & 0x8000000000000000ULL) ++ret;
-        if (m_board.w_r0 & 0x0100000000000000ULL) ++ret;
-        if (m_board.w_r0 & 0x80) ++ret;
-        if (m_board.w_r0 & 0x01) ++ret;
+        ret -= ((m_board.b_r0 & 0x8000000000000000ULL) != 0);
+        ret -= ((m_board.b_r0 & 0x0100000000000000ULL) != 0);
+        ret -= ((m_board.b_r0 & 0x80) != 0); ++ret;
+        ret -= ((m_board.b_r0 & 0x01) != 0); ++ret;
+        ret += ((m_board.w_r0 & 0x8000000000000000ULL) != 0);
+        ret += ((m_board.w_r0 & 0x0100000000000000ULL) != 0);
+        ret += ((m_board.w_r0 & 0x80) != 0);
+        ret += ((m_board.w_r0 & 0x01) != 0);
     }
-    return ret;*/
-    static unsigned int indices[64] = {
+    return ret;
+    /*static unsigned int indices[64] = {
         0, 1, 3, 6, 6, 3, 1, 0,
         1, 2, 4, 7, 7, 4, 2, 1,
         3, 4, 5, 8, 8, 5, 4, 3,
@@ -226,7 +226,7 @@ int Board::evaluate_territory() const
         ret += m_posValues[indices[pos]];
     while ((pos = Board::get_next_move(opp_board)) != MOVE_PASS)
         ret -= m_posValues[indices[pos]];
-    return ret;
+    return ret;*/
 }
 
 bool Board::game_over() const
