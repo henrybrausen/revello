@@ -114,11 +114,9 @@ int ABPlayer::alphabeta(int depth, int alpha, int beta)
         if (entry->type == EXACT)
             return entry->score;
         else if (entry->type == ALPHA)  // Upper bound
-            //if (entry->score <= alpha) return alpha;
-            beta = std::max(beta, entry->score);
+            beta = std::min(beta, entry->score);
         else if (entry->type == BETA)   // Lower bound
-            //if (entry->score >= beta) return beta;
-            alpha = std::min(alpha, entry->score);
+            alpha = std::max(alpha, entry->score);
         if (beta <= alpha)
             if (entry->type == ALPHA)
                 return alpha;
