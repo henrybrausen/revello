@@ -186,6 +186,7 @@ int Board::num_stones(bool color) const
 int Board::evaluate_territory() const
 {
 	/*int ret = 0;
+	// Count corners
     if (m_toPlay == P_BLACK) {
         if (m_board.b_r0 & 0x8000000000000000ULL) ++ret;
         if (m_board.b_r0 & 0x0100000000000000ULL) ++ret;

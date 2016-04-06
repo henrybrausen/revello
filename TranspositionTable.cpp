@@ -17,7 +17,8 @@ TranspositionTable::~TranspositionTable()
 
 const TTEntry * TranspositionTable::lookup(uint64_t hash, int depth, unsigned char iter_num) const
 {
-    if(iter_num != m_table[hash%m_tableSize].iter_num || m_table[hash%m_tableSize].hash != hash || m_table[hash%m_tableSize].depth < depth) return NULL;
+    //if(iter_num != m_table[hash%m_tableSize].iter_num || m_table[hash%m_tableSize].hash != hash || m_table[hash%m_tableSize].depth < depth) return NULL;
+	if(m_table[hash%m_tableSize].hash != hash || m_table[hash%m_tableSize].depth < depth) return NULL;
     ++m_hits;
     return &m_table[hash%m_tableSize];
 }
@@ -25,7 +26,7 @@ const TTEntry * TranspositionTable::lookup(uint64_t hash, int depth, unsigned ch
 void TranspositionTable::insert(const TTEntry& entry)
 {
     unsigned long int index = entry.hash%m_tableSize;
-    //if (m_table[index].depth > entry.depth) return;
+    if (m_table[index].depth > entry.depth) return;
     m_table[index].hash = entry.hash;
     m_table[index].score = entry.score;
     m_table[index].type = entry.type;
@@ -54,8 +55,8 @@ void TranspositionTable::clear()
         //m_table[i].hash = 0;
         //m_table[i].score = 0;
         //m_table[i].type = EXACT;
-        //m_table[i].depth = 0;
-        m_table[i].iter_num = 0;
+        m_table[i].depth = -1;
+        //m_table[i].iter_num = 0;
     }
     m_hits = 0;
 }

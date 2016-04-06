@@ -74,7 +74,6 @@ unsigned char ABPlayer::genmove(bool color)
             if (first || (val > best_val)) { best_val = val; best_pos = pos; }
             ++move_count;
             first = false;
-            
             if (timeout()) {
 				// We ran out of time!
                 std::cerr << std::endl << "ABPlayer: Search timed out (" << m_time << "s elapsed)." << std::endl;
@@ -111,17 +110,21 @@ int ABPlayer::alphabeta(int depth, int alpha, int beta)
     const TTEntry *entry;
     if ((entry = m_TT.lookup(m_board.hash(), depth, m_iterNum)) != NULL) {
 		// TODO: Some of this seems a bit sketchy, especially with iterative deepening involved. Verify!
-        if (entry->type == EXACT)
-            return entry->score;
-        else if (entry->type == ALPHA)  // Upper bound
-            beta = std::min(beta, entry->score);
-        else if (entry->type == BETA)   // Lower bound
-            alpha = std::max(alpha, entry->score);
-        if (beta <= alpha)
-            if (entry->type == ALPHA)
-                return alpha;
-            else
-                return beta;
+		// Only use bound info if this TT entry is from this iteration of the search!
+		// Otherwise, we can only use the best move info!
+		if (m_iterNum == entry->iter_num){
+			if (entry->type == EXACT)
+				return entry->score;
+			else if (entry->type == ALPHA)  // Upper bound
+				beta = std::min(beta, entry->score);
+			else if (entry->type == BETA)   // Lower bound
+				alpha = std::max(alpha, entry->score);
+			if (beta <= alpha)
+				if (entry->type == ALPHA)
+					return alpha;
+				else
+					return beta;
+		}
     }
     
 	// Grab moves available from this position!
