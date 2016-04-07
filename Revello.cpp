@@ -6,7 +6,7 @@
 #include "OTPEngine.h"
 
 // For position evaluation.
-int values[10] = { 1000, -100, -100, 0, 0, 0, 0, 0, 0, 0 };
+int values[10] = { 1000, -500, -500, 200, 100, 50, 0, 0, 0, 0 };
 
 int main(int argc, char *argv[])
 {

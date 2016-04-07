@@ -132,11 +132,11 @@ int ABPlayer::alphabeta(int depth, int alpha, int beta)
     unsigned int move_count = m_board.num_moves(moves);
     
     // Quiescence-y improvement
-    if (move_count == 1 && depth == 0) depth = 2;   // Search forced chains of moves up until their conclusion.
+    if (move_count == 1 && depth == 0) depth = 1;   // Search forced chains of moves up until their conclusion.
     
     if (depth <= 0 && m_board.last_move() != MOVE_PASS) {
 		// We hit out search depth limit. Eval the board and return!
-        int ret = 100*m_mobilityWeight*Board::num_moves(moves) + 1000*m_board.evaluate_territory()+m_board.stone_differential();
+        int ret = 100*m_mobilityWeight*Board::num_moves(moves) + m_board.evaluate_territory()+m_board.stone_differential();
         //m_board.set_toPlay(!m_board.get_toPlay());
         //ret += m_mobilityWeight*Board::num_moves(m_board.get_moves());
         //m_board.set_toPlay(!m_board.get_toPlay());
